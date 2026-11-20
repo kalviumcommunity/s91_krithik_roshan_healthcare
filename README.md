@@ -1,10 +1,34 @@
 # Healthcare Clinic Patient History System
 
-## Project Title
-Healthcare Clinic Patient History System
+## Problem Statement
+Small healthcare clinics often keep patient information in paper files or disconnected systems. Finding a patient's complete treatment history can delay care and lead to duplicate tests or inconsistent records.
 
-## Problem
-Small healthcare clinics frequently maintain patient information across paper files and disconnected systems. Retrieving complete treatment histories becomes difficult, resulting in delays, duplicate tests, and inconsistent patient care.
+## Proposed Solution
+A full-stack clinic application that gives authenticated clinic users one place to manage patient profiles, appointments, and treatment histories.
+
+## Technology Stack
+- Frontend: React, Vite
+- Backend: Node.js, Express
+- Database: MongoDB with Mongoose; an in-memory MongoDB is started for local development when `MONGO_URI` is not set
+- Authentication: username/password with JWT
+- Frontend hosting configuration: Netlify (`netlify.toml`)
+
+## Key Features
+- Register and log in with JWT-based authentication.
+- Search and manage patient profiles.
+- Add, update, and delete treatment records linked to patients.
+- Schedule and cancel patient appointments.
+- Access protected API routes using a bearer token.
+
+## Deployment and Walkthrough
+- Frontend: Not provided.
+- Backend: Not provided.
+- Walkthrough video: Not provided.
+
+Add verified public frontend and backend URLs and a walkthrough link here before submission. Deployment instructions are in [Deploy the frontend to Netlify](#deploy-the-frontend-to-netlify).
+
+## Repository
+[kalviumcommunity/s91_krithik_roshan_healthcare](https://github.com/kalviumcommunity/s91_krithik_roshan_healthcare)
 
 ## Scope — aligned to the provided Kalvium LUs
 This project implements only the capabilities explicitly required by the provided LUs:
@@ -27,7 +51,7 @@ Third-party authentication is intentionally not implemented because the provided
 ## Main User Flow
 Login/Register → Dashboard → Search/View Patients → Open Patient → Schedule Appointment or View Treatment History → Add Treatment Record → Edit/Delete Patient or Treatment Record.
 
-## Planned Screens
+## Application Screens
 1. Login
 2. Register
 3. Dashboard / Patient List
@@ -62,8 +86,8 @@ Patients:
 - `DELETE /api/patients/:id`
 
 Treatment records:
-- `GET /api/patients/:patientId/treatments`
-- `POST /api/patients/:patientId/treatments`
+- `GET /api/treatments/patient/:patientId`
+- `POST /api/treatments/patient/:patientId`
 - `PUT /api/treatments/:id`
 - `DELETE /api/treatments/:id`
 
@@ -76,32 +100,34 @@ All protected application APIs require a valid JWT.
 
 ## Setup
 
-### Server
+### Prerequisites
+- Node.js and npm
+- MongoDB, if using a persistent local database
+
+### Install dependencies
 ```bash
-cd server
-npm install
+git clone https://github.com/kalviumcommunity/s91_krithik_roshan_healthcare.git
+cd s91_krithik_roshan_healthcare
+npm --prefix server install
+npm --prefix client install
 ```
 
-Create `.env`:
+### Configure the server
+Create `server/src/.env` (or copy `server/.env.example`) and set:
 ```env
 PORT=5000
 MONGO_URI=mongodb://127.0.0.1:27017/healthcare_clinic
 JWT_SECRET=replace_with_a_long_random_secret
 ```
 
-Start:
+If `MONGO_URI` is omitted, the server starts a temporary in-memory MongoDB; data will not persist after it stops.
+
+### Run the application
 ```bash
 npm run dev
 ```
 
-### Client
-```bash
-cd client
-npm install
-npm run dev
-```
-
-The Vite development server normally runs at `http://localhost:5173`.
+This starts the API at `http://localhost:5000` and the Vite frontend at `http://localhost:5173`. Check the API at `http://localhost:5000/api/health`.
 
 ## Deploy the frontend to Netlify
 
